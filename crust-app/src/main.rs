@@ -1,4 +1,4 @@
-use axum::{routing::get, Router};
+use axum::{response::Html, routing::get, Router};
 use std::net::SocketAddr;
 
 #[tokio::main]
@@ -17,6 +17,8 @@ async fn main() {
         .unwrap();
 }
 
-async fn handler() -> &'static str {
-    "Hello, world!"
+async fn handler() -> Html<&'static str> {
+    // `std::include_str` macro can be used to include an utf-8 file as `&'static str` in compile
+    // time. This method is relative to current `main.rs` file.
+    Html(include_str!("../templates/index.html"))
 }
